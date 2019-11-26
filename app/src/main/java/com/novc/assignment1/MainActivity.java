@@ -1,7 +1,6 @@
 package com.novc.assignment1;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -14,7 +13,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -93,10 +91,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     etRoom.setError("Room cannot be 0");
                     return;
                 }
+                if (TextUtils.isEmpty(tvCheckingShow.getText())) {
+                    tvChecking.setText("Checking date not selected");
+                    return;
+                }
+                if (TextUtils.isEmpty(tvCheckoutShow.getText())) {
+                    tvCheckout.setText("Checkout date not selected");
+                    return;
+                }
                 if (dateChecking.before(dateCheckout)) {
-                    noofday = Double.parseDouble(CheckDate());
+                    noofday = Double.parseDouble(GetDay());
                     CalculateGross();
+                    tvChecking.setText("Select Checking Date");
+                    tvCheckout.setText("Select Checkout Date");
                 } else {
+
                     dialogmsg();
                     AlertDialog alert = builder.create();
                     alert.show();
@@ -167,15 +176,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         total = roomcost * noofroom * noofday;
         vat = (0.13 * total);
         grosstotal = total + vat;
-        String setTotal = "Total : " + total;
-        String setVat = "Vat (13%) : " + vat;
-        String setGrossTotal = "Gross Total : " + grosstotal;
+        String setTotal = "Total : Rs." + total;
+        String setVat = "Vat (13%) : Rs." + vat;
+        String setGrossTotal = "Gross Total : Rs." + grosstotal;
         tvTotal.setText(setTotal);
         tvVat.setText(setVat);
         tvGrossTotal.setText(setGrossTotal);
     }
 
-    private String CheckDate() {
+    private String GetDay() {
         Calendar cCal = Calendar.getInstance();
         cCal.setTime(dateChecking);
         int cYear = cCal.get(Calendar.YEAR);
