@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     Button btncalculate;
     AlertDialog.Builder builder;
 
-    private String[] Roomtype = {"Deluxe", "Presidential", "Premium"};
+    private String[] Roomtype = {"Deluxe : Rs 2000", "Presidential : Rs 5000", "Premium : Rs 4000"};
     double total, grosstotal, vat, roomcost, noofday;
     Date dateChecking, dateCheckout;
 
@@ -155,11 +156,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     private void CalculateGross() {
-        if (sRoomtype.getSelectedItem().toString().equals("Deluxe")) {
+        if (sRoomtype.getSelectedItem().toString().equals("Deluxe : Rs 2000")) {
             roomcost = 2000;
-        } else if (sRoomtype.getSelectedItem().toString().equals("Presidential")) {
+        } else if (sRoomtype.getSelectedItem().toString().equals("Presidential : Rs 5000")) {
             roomcost = 5000;
-        } else if (sRoomtype.getSelectedItem().toString().equals("Premium")) {
+        } else if (sRoomtype.getSelectedItem().toString().equals("Premium : Rs 4000")) {
             roomcost = 4000;
         }
         int noofroom = Integer.parseInt(etRoom.getText().toString());
