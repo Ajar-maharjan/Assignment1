@@ -2,7 +2,9 @@ package com.novc.assignment1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     Spinner sRoomtype;
     EditText etAdult, etChildren, etRoom;
     Button btncalculate;
+    AlertDialog.Builder builder;
 
     private String[] Roomtype ={"Deluxe","Presidential","Premium"};
     double total, grosstotal,vat, roomcost,noofday;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         etChildren = findViewById(R.id.etChildren);
         etRoom = findViewById(R.id.etRoom);
         btncalculate = findViewById(R.id.btnCalculate);
+        builder = new AlertDialog.Builder(this);
 
         ArrayAdapter adapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, Roomtype);
@@ -90,13 +94,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     etRoom.setError("Room cannot be 0");
                     return;
                 }
-                long as = dateCheckout.getTime() - dateChecking.getTime();
                  if (dateChecking.before(dateCheckout)) {
                      noofday =  Double.parseDouble(CheckDate());
                      CalculateGross();
                  }
                  else {
-
+                     dialogmsg();
+                     AlertDialog alert = builder.create();
+                     alert.show();
                  }
             }
         });
@@ -200,4 +205,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         return dayCount + "" ;
     }
 
+    private void dialogmsg(){
+        builder.setTitle("Date mismatch")
+            .setMessage("Invalid Checkout date. Checkout date cannot greater than checking date")
+            .setCancelable(false)
+            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+    }
 }

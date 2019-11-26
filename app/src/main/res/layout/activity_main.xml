@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#65d4eb"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -11,6 +12,7 @@
     <TextView
         android:id="@+id/tvChecking"
         style="@style/TextStyle"
+        android:background="#c9edf2"
         android:text="Select Checking Date" />
 
     <TextView
@@ -21,6 +23,7 @@
     <TextView
         android:id="@+id/tvCheckout"
         style="@style/TextStyle"
+        android:background="#c9edf2"
         android:text="Select Checkout Date" />
 
     <TextView
@@ -30,6 +33,7 @@
 
     <TextView
         style="@style/TextStyle"
+        android:background="#c9edf2"
         android:gravity="left"
         android:text="Select room type" />
 
@@ -42,20 +46,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
+        android:background="#c9edf2"
         android:columnCount="3"
         android:rowCount="2"
         tools:context=".GridActivity">
 
         <TextView
             style="@style/GridStyle"
+            android:background="#f5b14c"
             android:text="Adult" />
 
         <TextView
             style="@style/GridStyle"
+            android:background="#f5b14c"
             android:text="Children" />
 
         <TextView
             style="@style/GridStyle"
+            android:background="#f5b14c"
             android:text="Room" />
 
         <EditText
@@ -82,23 +90,27 @@
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="15dp"
+        android:background="@android:color/darker_gray"
         android:text="Calculate" />
 
     <TextView
         android:id="@+id/tvTotal"
         style="@style/TextStyle"
+        android:background="#f5b14c"
         android:gravity="left"
         android:text="Total : " />
 
     <TextView
         android:id="@+id/tvVat"
         style="@style/TextStyle"
+        android:background="#f5b14c"
         android:gravity="left"
         android:text="Vat (13%) : " />
 
     <TextView
         android:id="@+id/tvGrosstotal"
         style="@style/TextStyle"
+        android:background="#f5b14c"
         android:gravity="left"
         android:text="Gross Total : " />
 
