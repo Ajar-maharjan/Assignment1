@@ -61,20 +61,17 @@
         <EditText
             android:id="@+id/etAdult"
             style="@style/GridStyle"
-            android:inputType="number"
-            android:text="0" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/etChildren"
             style="@style/GridStyle"
-            android:inputType="number"
-            android:text="0" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/etRoom"
             style="@style/GridStyle"
-            android:inputType="number"
-            android:text="0" />
+            android:inputType="number" />
     </GridLayout>
 
 

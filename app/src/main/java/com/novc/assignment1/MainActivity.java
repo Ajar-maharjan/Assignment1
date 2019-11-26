@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     Button btncalculate;
 
     private String[] Roomtype ={"Deluxe","Presidential","Premium"};
-    double total, noofday, grosstotal,vat, roomcost;
-    Date date1 ,date2;
+    double total, grosstotal,vat, roomcost,noofday;
+    Date dateChecking ,dateCheckout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,32 +82,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     etAdult.setError("Enter number of adult");
                     return;
                 }
-                /*if (etAdult.getText().toString().equals("0")){
+                if (etAdult.getText().toString().equals("0")){
                     etAdult.setError("Adult cannot be 0");
                     return;
                 }
                 if (etRoom.getText().toString().equals("0")){
-                    etAdult.setError("Room cannot be 0");
+                    etRoom.setError("Room cannot be 0");
                     return;
-                }*/
-                /*try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-                    date1 = sdf.parse(tvCheckingShow.toString());
-                    date2 = sdf.parse(tvCheckoutShow.toString());
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-                if (date1.compareTo(date2) < 0) {
+                long as = dateCheckout.getTime() - dateChecking.getTime();
+                 if (dateChecking.before(dateCheckout)) {
+                     noofday =  Double.parseDouble(CheckDate());
+                     CalculateGross();
+                 }
+                 else {
 
-                 */
-                    noofday = 2 ;
-                    CalculateGross();
-                    /*
-                } else {
-
-                }
-                     */
+                 }
             }
         });
 
@@ -114,10 +105,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
     private void loadCheckingDate(){
-        final Calendar date = Calendar.getInstance();
-        int year = date.get(Calendar.YEAR);
-        int month = date.get(Calendar.MONTH);
-        int day = date.get(Calendar.DAY_OF_MONTH);
+        final Calendar date1 = Calendar.getInstance();
+        int year = date1.get(Calendar.YEAR);
+        int month = date1.get(Calendar.MONTH);
+        int day = date1.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerChecking = new DatePickerDialog(
                 this,this,year,month,day);
@@ -125,10 +116,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     private void loadCheckoutDate(){
-        final Calendar date = Calendar.getInstance();
-        int year = date.get(Calendar.YEAR);
-        int month = date.get(Calendar.MONTH);
-        int day = date.get(Calendar.DAY_OF_MONTH);
+        final Calendar date2 = Calendar.getInstance();
+        int year = date2.get(Calendar.YEAR);
+        int month = date2.get(Calendar.MONTH);
+        int day = date2.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerCheckOut = new DatePickerDialog(
                 this, new DatePickerDialog.OnDateSetListener() {
@@ -136,6 +127,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
                 String date = dayOfMonth + "-" + month + "-" + year;
+                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    dateCheckout = format.parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 tvCheckoutShow.setText(date);
             }
         }, year, month, day);
@@ -145,11 +142,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         month = month + 1;
-        String date = dayOfMonth + "-" + month + "-" + year;
+        String date =  dayOfMonth + "-" + month + "-" + year;
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            dateChecking = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         tvCheckingShow.setText(date);
     }
 
-    public void CalculateGross(){
+    private void CalculateGross(){
         if (sRoomtype.getSelectedItem().toString().equals("Deluxe")) {
             roomcost = 2000;
         }
@@ -161,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
         int noofroom = Integer.parseInt(etRoom.getText().toString());
         total = roomcost * noofroom * noofday;
-        vat = (13/100*total);
+        vat = (0.13*total);
         grosstotal = total + vat;
         String setTotal = "Total : " + total;
         String setVat ="Vat (13%) : " + vat;
@@ -171,5 +174,30 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         tvGrossTotal.setText(setGrossTotal);
     }
 
+    private String CheckDate(){
+        Calendar cCal = Calendar.getInstance();
+        cCal.setTime(dateChecking);
+        int cYear = cCal.get(Calendar.YEAR);
+        int cMonth = cCal.get(Calendar.MONTH);
+        int cDay = cCal.get(Calendar.DAY_OF_MONTH);
+
+        Calendar eCal = Calendar.getInstance();
+        eCal.setTime(dateCheckout);
+        int eYear = eCal.get(Calendar.YEAR);
+        int eMonth = eCal.get(Calendar.MONTH);
+        int eDay = eCal.get(Calendar.DAY_OF_MONTH);
+
+        Calendar date1 = Calendar.getInstance();
+        Calendar date2 = Calendar.getInstance();
+
+        date1.clear();
+        date1.set(cYear, cMonth, cDay);
+        date2.clear();
+        date2.set(eYear, eMonth, eDay);
+
+        long diff = date2.getTimeInMillis() - date1.getTimeInMillis();
+        float dayCount = (float) diff / (24 * 60 * 60 * 1000);
+        return dayCount + "" ;
+    }
 
 }
