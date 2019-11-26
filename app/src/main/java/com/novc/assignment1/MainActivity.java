@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     Button btncalculate;
 
     private String[] Roomtype ={"Deluxe","Presidential","Premium"};
+    double total, noofday, grosstotal,vat, roomcost;
     Date date1 ,date2;
 
     @Override
@@ -79,16 +81,16 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     etAdult.setError("Enter number of adult");
                     return;
                 }
-                if (Integer.parseInt(etAdult.getText().toString()) == 0 ){
+                /*if (etAdult.getText().toString().equals("0")){
                     etAdult.setError("Adult cannot be 0");
                     return;
                 }
-                if (Integer.parseInt(etAdult.getText().toString()) == 0 ){
+                if (etRoom.getText().toString().equals("0")){
                     etAdult.setError("Room cannot be 0");
                     return;
-                }
-                try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                }*/
+                /*try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
                     date1 = sdf.parse(tvCheckingShow.toString());
                     date2 = sdf.parse(tvCheckoutShow.toString());
 
@@ -97,9 +99,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 }
                 if (date1.compareTo(date2) < 0) {
 
+                 */
+                    noofday = 2 ;
+                    CalculateGross();
+                    /*
                 } else {
 
                 }
+                     */
             }
         });
 
@@ -129,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
                 String date = dayOfMonth + "-" + month + "-" + year;
+                tvCheckoutShow.setText(date);
             }
         }, year, month, day);
         datePickerCheckOut.show();
@@ -137,10 +145,31 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         month = month + 1;
-        String date = "Day/Month/Year : " + dayOfMonth + "-" + month + "-" + year;
-        tvCheckoutShow.setText(date);
+        String date = dayOfMonth + "-" + month + "-" + year;
+        tvCheckingShow.setText(date);
     }
 
+    public void CalculateGross(){
+        if (sRoomtype.getSelectedItem().toString().equals("Deluxe")) {
+            roomcost = 2000;
+        }
+        else if (sRoomtype.getSelectedItem().toString().equals("Presidential")) {
+            roomcost = 5000;
+        }
+        else if (sRoomtype.getSelectedItem().toString().equals("Premium")) {
+            roomcost = 4000;
+        }
+        int noofroom = Integer.parseInt(etRoom.getText().toString());
+        total = roomcost * noofroom * noofday;
+        vat = (13/100*total);
+        grosstotal = total + vat;
+        String setTotal = "Total : " + total;
+        String setVat ="Vat (13%) : " + vat;
+        String setGrossTotal = "Gross Total : "+ grosstotal;
+        tvTotal.setText(setTotal);
+        tvVat.setText(setVat);
+        tvGrossTotal.setText(setGrossTotal);
+    }
 
 
 }

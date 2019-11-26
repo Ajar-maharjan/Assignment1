@@ -16,8 +16,7 @@
     <TextView
         android:id="@+id/tvCheckingShow"
         style="@style/TextStyle"
-        android:layout_marginBottom="12dp"
-        android:text="DD/MM/YYYY" />
+        android:layout_marginBottom="12dp" />
 
     <TextView
         android:id="@+id/tvCheckout"
@@ -27,11 +26,11 @@
     <TextView
         android:id="@+id/tvCheckoutShow"
         style="@style/TextStyle"
-        android:layout_marginBottom="12dp"
-        android:text="DD/MM/YYYY" />
+        android:layout_marginBottom="12dp" />
 
     <TextView
         style="@style/TextStyle"
+        android:gravity="left"
         android:text="Select room type" />
 
     <Spinner
@@ -82,8 +81,7 @@
     <Button
         android:id="@+id/btnCalculate"
         style="@style/TextStyle"
-        android:layout_width="133dp"
-        android:layout_height="28dp"
+        android:layout_width="151dp"
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="15dp"
