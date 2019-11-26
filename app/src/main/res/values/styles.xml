@@ -1,0 +1,21 @@
+<resources>
+
+
+    <style name="TextStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+     <style name="GridStyle">
+         <item name="android:layout_height">wrap_content</item>
+         <item name="android:layout_width">wrap_content</item>
+         <item name="android:layout_rowWeight">1</item>
+         <item name="android:layout_columnWeight">1</item>
+         <item name="android:textSize">15sp</item>
+         <item name="android:gravity">center</item>
+     </style>
+
+
+</resources>
