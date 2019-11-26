@@ -84,11 +84,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     return;
                 }
                 if (TextUtils.isEmpty(etChildren.getText())) {
-                    etAdult.setError("Enter number of adult");
+                    etChildren.setError("Enter number of adult");
                     return;
                 }
                 if (TextUtils.isEmpty(etRoom.getText())) {
-                    etAdult.setError("Enter number of adult");
+                    etRoom.setError("Enter number of adult");
                     return;
                 }
                 if (etAdult.getText().toString().equals("0")) {
