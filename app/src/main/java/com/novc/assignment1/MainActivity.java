@@ -71,6 +71,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         btncalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (TextUtils.isEmpty(tvCheckingShow.getText())) {
+                    tvCheckingShow.setError("Checking date not selected");
+                    return;
+                }
+                if (TextUtils.isEmpty(tvCheckoutShow.getText())) {
+                    tvCheckoutShow.setError("Checkout date not selected");
+                    return;
+                }
                 if (TextUtils.isEmpty(etAdult.getText())) {
                     etAdult.setError("Enter number of adult");
                     return;
@@ -91,19 +99,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     etRoom.setError("Room cannot be 0");
                     return;
                 }
-                if (TextUtils.isEmpty(tvCheckingShow.getText())) {
-                    tvChecking.setText("Checking date not selected");
-                    return;
-                }
-                if (TextUtils.isEmpty(tvCheckoutShow.getText())) {
-                    tvCheckout.setText("Checkout date not selected");
-                    return;
-                }
                 if (dateChecking.before(dateCheckout)) {
                     noofday = Double.parseDouble(GetDay());
                     CalculateGross();
-                    tvChecking.setText("Select Checking Date");
-                    tvCheckout.setText("Select Checkout Date");
+                    tvCheckingShow.setError(null);
+                    tvCheckoutShow.setError(null);
                 } else {
 
                     dialogmsg();
